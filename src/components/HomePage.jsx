@@ -3,11 +3,12 @@ import millify from 'millify';
 import { Typography, Row, Col, Statistic } from 'antd';
 import {Link} from 'react-router-dom';
 
+import { useGetCryptoQuery } from '../services/cryptoAPI';
+
 const {Title} = Typography;
 
 const HomePage = () => {
-
-    console.log("hello");
+    const {data, isFetching } = useGetCryptoQuery();
   return (
     <>
         <Title level={2} className="heading">Global Crypto Stats</Title>

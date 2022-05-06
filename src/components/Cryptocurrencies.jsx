@@ -1,8 +1,8 @@
 import React from 'react'
 
 const Cryptocurrencies = () => {
-    console.log("Cryptocurrencies");
-  return (
+
+    return (
     <div>Cryptocurrencies</div>
   )
 }
