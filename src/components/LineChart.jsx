@@ -1,47 +1,15 @@
 import React from 'react';
-import {Line} from 'react-chartjs-2';
+import Chart from 'react-google-charts';
 import {Col, Row, Typography} from 'antd';
 
 const {Title} = Typography;
 
 const LineChart = ({coinHistory, currentPrice, coinName}) => {
-    const coinPrice = [];
-    const coinTimeStamp = [];
-
-    console.log(coinHistory);
+    const chartData = [['x', 'price']]; 
 
     for(let i=0; i<coinHistory?.data?.history?.length; i++){
-        coinPrice.push(coinHistory.data.history[i].price);
-        coinTimeStamp.push(new Date(coinHistory.data.history[i].timestamp).toLocaleDateString());
+      chartData.push([new Date(coinHistory.data.history[i].timestamp).toLocaleDateString(), parseFloat(coinHistory.data.history[i].price)])
     }
-
-    console.log(coinPrice);
-    console.log(coinTimeStamp);
-
-    const data = {
-        labels: coinTimeStamp,
-        datasets: [
-            {
-                label: 'Price in USD',
-                data: coinPrice,
-                fill: false,
-                backgroundColor: '#0071bd',
-                borderColor: '#0071bd'
-            }
-        ]
-    }
-
-    const options = {
-        scales: {
-          yAxes: [
-            {
-              ticks: {
-                beginAtZero: true,
-              },
-            },
-          ],
-        },
-      };
 
   return (
     <>
@@ -52,7 +20,7 @@ const LineChart = ({coinHistory, currentPrice, coinName}) => {
                 <Title level={5} className="current-price">Current {coinName} Price: ${currentPrice}</Title>
             </Col>
         </Row>
-        <Line data={data} options={options} />
+        <Chart width={'700px'} height={'410px'} chartType="LineChart" loader={<div>Loading Chart...</div>} data={chartData} />
     </>
   )
 }
